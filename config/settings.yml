@@ -1,0 +1,165 @@
+bigrule:
+  etcd-service:
+    host: 172.16.0.163
+    port: 2379
+  service-manager:
+    # 启动服务配置
+    application:
+      model: debug
+      host: 172.31.2.105
+      port: 8081
+    # mysql 配置模块
+    dbmysql:
+      addr: root:123456@tcp(172.16.0.163:3306)/bigrule_164?charset=utf8&parseTime=True&loc=Local
+      loglevel: info
+    # 系统日志配置模块
+    logger:
+      path: ./logs/service-manager/
+      stdout: true
+      level: debug
+    web-static:
+      path: ../www/data/bigruleweb
+  authentication:
+    # 启动服务配置
+    application:
+      model: debug
+      host: 172.31.2.105
+      port: 8082
+    # mysql 配置模块
+    dbmysql:
+      addr: root:123456@tcp(172.16.0.163:3306)/bigrule_164?charset=utf8&parseTime=True&loc=Local
+      loglevel: info
+    # 系统日志配置模块
+    logger:
+      path: ./logs/authentication/
+      stdout: true
+      level: debug
+    # cookie 配置模块 以下时间都是秒级单位
+    cookie:
+      mysqlTime: 86400
+  repo-manager:
+    # 启动服务配置
+    application:
+      model: debug
+      host: 172.31.2.105
+      port: 8083
+    # mysql 配置模块
+    dbmysql:
+      addr: root:123456@tcp(172.16.0.163:3306)/bigrule_164?charset=utf8&parseTime=True&loc=Local
+      loglevel: info
+    git:
+      rootpath: /home/flowpp/data
+      #giturl: /home/flowpp/data/git-repo.git
+      giturl: git@172.16.0.11:xiawei/git-repo.git
+    # 系统日志配置模块
+    logger:
+      path: ./logs/repo-service/
+      stdout: true
+      level: debug
+    # 编译管理本地目录
+    compiler:
+      compilerpath: /mnt/bigrule/compile
+      filepath: /mnt/bigrule/compile
+      packagepath: /mnt/bigrule/package
+    # 统计数据 本地目录，统计时间间隔 秒级
+    monitor:
+      path: /mnt/bigrule/monitors
+      time: 300
+  data-manager:
+    # 启动服务配置
+    application:
+      model: debug
+      host: 172.31.2.105
+      port: 8084
+    # mysql 配置模块
+    dbmysql:
+      addr: root:123456@tcp(172.16.0.163:3306)/bigrule_164?charset=utf8&parseTime=True&loc=Local
+      loglevel: info
+    # 系统日志配置模块
+    logger:
+      path: ./logs/data-service/
+      stdout: true
+      level: debug
+  screen-bff-service:
+    # 启动服务配置
+    application:
+      model: debug
+      host: 172.31.2.105
+      port: 8085
+    # mysql 配置模块
+    dbmysql:
+      addr: root:123456@tcp(172.16.0.163:3306)/flowcsr_test?charset=utf8&parseTime=True&loc=Local
+      loglevel: debug
+    # 系统日志配置模块
+    logger:
+      path: ./logs/flowcsr-bfs-service/
+      stdout: true
+      level: debug
+    repoids:
+      rule_repo_ids: 1,2,3,4,5
+      parser_repo_ids: 1,2,3,4,5
+    # 命中规则库
+    hit-repo:
+      repo_names: [ "赋乐_应用识别库", "赋乐_应用行为识别库", "赋乐_设备识别库", "赋乐_网站识别库", "赋乐_应用会员识别库",
+                    "赋乐_应用搜索关键词识别库", "赋乐_影视识别库", "赋乐_汽车业务识别库", "赋乐_房产业务识别库", "赋乐_电商识别库" ]
+    # 静态路由
+    web-static:
+      path: C:\Users\Administrator\Desktop\screenweb
+    # prometheus 统计接口列表
+    prometheus:
+      url: [ "/v1/ads/app-top", "/v1/ads/level-ct", "/v1/ads/city-ct", "/v1/repo/summary/query",
+             "/v1/exporter/xdr/stat", "/v1/exporter/engine/rate", "/v1/exporter/engine/rate",
+             "/v1/system/summary/query", "/v1/system/summary/rule-status/query" ]
+  repo-bff-service:
+    # 启动服务配置
+    application:
+      model: debug
+      host: 172.31.2.105
+      port: 8086
+    # mysql 配置模块
+    dbmysql:
+      addr: root:123456@tcp(172.16.0.163:3306)/bigrule_164?charset=utf8&parseTime=True&loc=Local
+      loglevel: info
+    # 系统日志配置模块
+    logger:
+      path: ./logs/repo-bff-service/
+      stdout: true
+      level: debug
+  compiler:
+    # 启动服务配置
+    application:
+      model: debug
+      host: 172.31.2.105
+      port: 8087
+    # mysql 配置模块
+    dbmysql:
+      addr: root:123456@tcp(172.16.0.163:3306)/bigrule_164?charset=utf8&parseTime=True&loc=Local
+      loglevel: info
+    # 系统日志配置模块
+    logger:
+      path: ./logs/compile/
+      stdout: true
+      level: debug
+    # 编译包 路径,最大编译时间 秒级
+    compile:
+      data-path: /home/flowpp/compile-bigrule/data
+      template-path: /home/flowpp/compile-bigrule/template/model.xlsx
+  repo-bfs-service:
+    # 启动服务配置
+    application:
+      model: debug
+      host: 172.31.1.195
+      port: 8088
+    # mysql 配置模块
+    dbmysql:
+      addr: root:123456@tcp(172.16.0.163:3306)/flowcsr_test?charset=utf8&parseTime=True&loc=Local
+      loglevel: debug
+    # 系统日志配置模块
+    logger:
+      path: ./logs/flowcsr-bfs-service/
+      stdout: true
+      level: debug
+    # repo默认用户
+    repo-user:
+      name: fxm
+      pwd: fxm
